@@ -2,6 +2,8 @@
 
 A web application that scrapes any subreddit you like from Reddit. You can save each article in the saved section, as well as add notes. The front end has been reworked to use react and react-router.
 
+Reddit has changed its website layout so some feature may be temporarily broken. Working on fixing them.
+
 ### Technologies used:
 
 * React
