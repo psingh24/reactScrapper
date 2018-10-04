@@ -31,51 +31,36 @@ app.post("/api", function(req, res) {
   
   // console.log(req.body.searchTerm)
   // First, we grab the body of the html with request
-  request("http://www.reddit.com/r/"+searchTerm, function(error, response, body) {
+  request("https://old.reddit.com/r/"+searchTerm, function(error, response, html) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
-    // console.log(body);
+
     if(error) {
       console.log(error)
-    } 
-
-      var $ = cheerio.load(body);
-
+    }
+    var $ = cheerio.load(html);
     // Now, we grab every h2 within an article tag, and do the following:
-    $('div.scrollerItem').each(function(i, element) {
-      
+    $("div.thing").each(function(i, element) {
 
       // Save an empty result object
       var result = {};
 
-    var imageUrl = $(element).find("div.evajbz-2").find("img").attr("src");
+    var imageUrl = $(element).find("a.thumbnail").find("img").attr("src");
     var imageSliced;
-      console.log(imageUrl)
+      // console.log(imageUrl)
 
       if (imageUrl === undefined) {
         imageSliced = "/assets/image/Reddit-Logo.jpeg"
       } else {
-        imageSliced = imageUrl
+        imageSliced = "http:"+imageUrl
       }
     
 
 
 
-      result.title = $(element).find("h2.xfe0h7-0").text();
-      // console.log(result.title)
-      result.link = $(element).find("a.SQnoC3ObvgnGjWt90zD9Z").attr("href");
-      var upvote = $(element).find("div._1rZYMD_4xY3gRcSS3p8ODO").text()
-      if (upvote.indexOf('k') >= 0) {
-        result.upvote = upvote.substring(0, 4);
-        console.log("y") 
-      } else {
-        result.upvote = upvote.substring(0, 3);
-        console.log("n")
-      }
-
-      console.log(result.upvote)
-      // console.log(result.upvote)
-      // result.upvote
-      // result.rank = $(element).find("div._1rZYMD_4xY3gRcSS3p8ODO").text()
+      result.title = $(element).find("p.title").find("a.title").text();
+      result.link = $(element).find("li").find("a").attr("href");
+      result.upvote = $(element).find("div.midcol").find("div.likes").text()
+      result.rank = $(element).find("span.rank").text()
       result.image = imageSliced;
     //  console.log($(element).find("a.thumbnail"))
     

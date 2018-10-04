@@ -45,7 +45,7 @@ var Result = createReactClass({
 
                               <div className="row btn-row">
                                   <div className="col-md-12">
-                                      <button className="btn btn-default result-btn"><a href={"https://www.reddit.com"+result.link} target="_blank">Visit Page</a></button>
+                                      <button className="btn btn-default result-btn"><a href={"https://old.reddit.com"+result.link} target="_blank">Visit Page</a></button>
                                   </div>
                               </div>
                               <div className="row">
